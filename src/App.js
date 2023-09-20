@@ -32,7 +32,7 @@ function App() {
     <>
       <div className="container">
         <h3 className="text-danger font-weight-bolder border-bottom text-center">
-        Google Drive{" "}
+        DesignX{" "}
         </h3>
         
         <br/><br/>

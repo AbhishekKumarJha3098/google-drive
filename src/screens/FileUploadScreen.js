@@ -10,11 +10,40 @@ const FileUploadScreen = (props) => {
     const [title, setTitle] =  useState('');
     const [singleProgress, setSingleProgress] = useState(0);
     const [multipleProgress, setMultipleProgress] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const SingleFileChange = (e) => {
-        setSingleFile(e.target.files[0]);
+    // const SingleFileChange = (e) => {
+    //     setSingleFile(e.target.files[0]);
+    //     setSingleProgress(0);
+    // }
+
+
+
+
+
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+    
+        if (file) {
+          // Check the file type here
+          const allowedFileTypes = ['image/jpeg', 'image/png'];
+          if (allowedFileTypes.includes(file.type)) {
+            setSingleFile(file);
+            setErrorMessage('');
+          } else {
+            setSingleFile(null);
+            setErrorMessage('Invalid file type. Please select a valid file.');
+          }
+        };
         setSingleProgress(0);
-    }
+      };
+
+
+
+
+
+
     const MultipleFileChange = (e) => {
         setMultipleFiles(e.target.files);
         setMultipleProgress(0);
@@ -57,7 +86,9 @@ const FileUploadScreen = (props) => {
             <div className="col-6">
                 <div className="form-group">
                     <label>Select Single File</label>
-                    <input type="file" className="form-control" onChange={(e) => SingleFileChange(e)} />
+                    <input type="file" className="form-control" onChange={(e) => handleFileChange(e)} />
+
+                    {errorMessage && <p>{errorMessage}</p>}
                 </div>
                 <div className="row">
                     <div className="col-10">
